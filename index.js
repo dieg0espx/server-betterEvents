@@ -51,7 +51,7 @@ app.get('/api/calculateDistance', async (req, res) => {
   const APIKEY = 'AIzaSyBJLc7G1TkrBTRq3cge-TsYgNpEvDz3pyM';
 
   // Get addresses from query parameters
-  const vendorAddress = '610 Granville St';
+  const vendorAddress = '4911 Hydraulic Rd, Rockford, IL';
   const deliveryAddress = req.query.deliveryAddress;
 
   // Check if deliveryAddress parameter is provided
