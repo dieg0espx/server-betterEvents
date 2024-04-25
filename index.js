@@ -25,7 +25,8 @@ const app = express();
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.json());
-import { cron } from './controllers/cron.js';
+const { cron } = require('./controllers/cron.js');
+
 
 
 app.use('/cron', cron);
