@@ -25,6 +25,10 @@ const app = express();
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.json());
+import { cron } from './controllers/cron.js';
+
+
+app.use('/cron', cron);
 
 
 async function userExists(username) {
@@ -68,6 +72,10 @@ app.get('/api/calculateDistance', async (req, res) => {
     res.status(500).json({ error: 'Error fetching data', details: error.message });
   }
 });
+
+
+
+
 
 // CONFIG - LOCAL SERVER
 app.listen(port, () => {
