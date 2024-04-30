@@ -48,5 +48,7 @@ export const cron = () => {
     }
   }
 
-  getBookings()
+  // getBookings()
+
+  console.log("WORKS");
 }
