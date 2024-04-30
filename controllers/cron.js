@@ -28,6 +28,7 @@ export const cron = () => {
         created:doc.data().created
       });
     })
+    checkExpiredBookings()
   }
     
   function checkExpiredBookings(){
@@ -51,5 +52,5 @@ export const cron = () => {
 
   getBookings()
 
-  console.log("WORKS AGAIN");
+  console.log("DONE");
 }
