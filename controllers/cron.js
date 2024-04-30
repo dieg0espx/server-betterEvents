@@ -15,9 +15,8 @@ const db = getFirestore(firebaseApp);
 
 
 
-// export const cron = () => {
-  module.exports = {
-    cron: async () => {
+export const cron = async () => {
+
 
   let arrayBookings = [];
   async function getBookings(){
@@ -50,5 +49,4 @@ const db = getFirestore(firebaseApp);
   }
 
   await getBookings()
-    }
-};
+}
