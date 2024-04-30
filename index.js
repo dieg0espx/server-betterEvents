@@ -70,6 +70,14 @@ app.get('/api/calculateDistance', async (req, res) => {
     res.status(500).json({ error: 'Error fetching data', details: error.message });
   }
 });
+app.get('/api/cancelExpiredBookings', async (req, res) => {
+  const bookingId = req.query.id;
+  try {
+    res.status(200).json("Canceled: " + bookingId);
+  } catch (error) {
+    res.status(500).json({ error: 'Error', details: error.message });
+  }
+});
 
 
 

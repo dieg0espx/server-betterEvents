@@ -44,7 +44,7 @@ export const cron = () => {
     const oneDay = 24 * 60 * 60 * 1000;
     const diffDays = Math.round(Math.abs((new Date() - date) / oneDay));
 
-    if (diffDays > 2 && paid == 'false') {
+    if (diffDays > 2 && paid == false) {
       console.log('CANCELING: ' + id);
     } else {
       console.log('ON TIME: ' + id);
