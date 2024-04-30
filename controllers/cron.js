@@ -25,7 +25,8 @@ export const cron = () => {
     querySnapshot.docs.map(async (doc) => {
       arrayBookings.push({
         id: doc.id,
-        created:doc.data().created
+        created:doc.data().created, 
+        paid: doc.data().paid
       });
     })
     checkExpiredBookings()
@@ -35,15 +36,15 @@ export const cron = () => {
     for(let i = 0; i < arrayBookings.length; i++){
       const dateStr = arrayBookings[i].created.split(' |')[0];
       const date = new Date(dateStr); 
-      compareDates(arrayBookings[i].id, date);
+      compareDates(arrayBookings[i].id, date, arrayBookings[i].paid);
     }
   }
 
-  function compareDates(id, date){
+  function compareDates(id, date, paid){
     const oneDay = 24 * 60 * 60 * 1000;
     const diffDays = Math.round(Math.abs((new Date() - date) / oneDay));
 
-    if (diffDays > 2) {
+    if (diffDays > 2 && paid == 'false') {
       console.log('CANCELING: ' + id);
     } else {
       console.log('ON TIME: ' + id);
