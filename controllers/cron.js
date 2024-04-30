@@ -4,7 +4,7 @@
 
 export const cron = () => {
   const { initializeApp } = require("firebase/app");
-  const { getFirestore, doc, getDoc, getDocs, updateDoc, collection } = require("firebase/firestore");
+  const { getFirestore, doc, getDoc, getDocs, updateDoc, collection, deleteDoc } = require("firebase/firestore");
   const firebaseConfig = {
     apiKey: "AIzaSyBC5MNHkmJEPA-W1lsBeg9uDBZPpVdjxoQ",
     authDomain: "bettereventsco-e28be.firebaseapp.com",
@@ -32,20 +32,21 @@ export const cron = () => {
     checkExpiredBookings()
   }
     
-  function checkExpiredBookings(){
+  async function checkExpiredBookings(){
     for(let i = 0; i < arrayBookings.length; i++){
       const dateStr = arrayBookings[i].created.split(' |')[0];
       const date = new Date(dateStr); 
-      compareDates(arrayBookings[i].id, date, arrayBookings[i].paid);
+      await compareDates(arrayBookings[i].id, date, arrayBookings[i].paid);
     }
   }
 
-  function compareDates(id, date, paid){
+  async function compareDates(id, date, paid){
     const oneDay = 24 * 60 * 60 * 1000;
     const diffDays = Math.round(Math.abs((new Date() - date) / oneDay));
 
     if (diffDays > 2 && paid == false) {
       console.log('CANCELING: ' + id);
+      await deleteDoc(doc(db, "bookings", id));
     } else {
       console.log('ON TIME: ' + id);
     }
