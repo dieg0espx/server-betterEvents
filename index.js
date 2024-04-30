@@ -26,9 +26,6 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use(express.json());
 const { cron } = require('./controllers/cron.js');
-
-
-
 app.use('/cron', cron);
 
 
