@@ -1,21 +1,22 @@
-const { initializeApp } = require("firebase/app");
-const { getFirestore, doc, getDoc, getDocs, updateDoc, collection } = require("firebase/firestore");
-const firebaseConfig = {
-  apiKey: "AIzaSyBC5MNHkmJEPA-W1lsBeg9uDBZPpVdjxoQ",
-  authDomain: "bettereventsco-e28be.firebaseapp.com",
-  projectId: "bettereventsco-e28be",
-  storageBucket: "bettereventsco-e28be.appspot.com",
-  messagingSenderId: "771360651927",
-  appId: "1:771360651927:web:ac8d027078becd6fabc7d2",
-  measurementId: "G-B7SEH10BTL"
-};
 
-const firebaseApp = initializeApp(firebaseConfig);
-const db = getFirestore(firebaseApp);
 
 
 
 export const cron = () => {
+  const { initializeApp } = require("firebase/app");
+  const { getFirestore, doc, getDoc, getDocs, updateDoc, collection } = require("firebase/firestore");
+  const firebaseConfig = {
+    apiKey: "AIzaSyBC5MNHkmJEPA-W1lsBeg9uDBZPpVdjxoQ",
+    authDomain: "bettereventsco-e28be.firebaseapp.com",
+    projectId: "bettereventsco-e28be",
+    storageBucket: "bettereventsco-e28be.appspot.com",
+    messagingSenderId: "771360651927",
+    appId: "1:771360651927:web:ac8d027078becd6fabc7d2",
+    measurementId: "G-B7SEH10BTL"
+  };
+
+  const firebaseApp = initializeApp(firebaseConfig);
+  const db = getFirestore(firebaseApp);
 
 
   let arrayBookings = [];
@@ -48,7 +49,7 @@ export const cron = () => {
     }
   }
 
-  // getBookings()
+  getBookings()
 
-  console.log("WORKS");
+  console.log("WORKS AGAIN");
 }
