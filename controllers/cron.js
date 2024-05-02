@@ -73,7 +73,7 @@ export const cron = () => {
         body: JSON.stringify({ data, reservationID })
       });
       if(response.status == 200){
-        // await deleteDoc(doc(db, "bookings", reservationID));
+        await deleteDoc(doc(db, "bookings", reservationID));
       }
     } catch (error) {
       console.error('Error:', error);
