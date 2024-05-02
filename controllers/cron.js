@@ -30,7 +30,7 @@ export const cron = () => {
         phone: doc.data().phone, 
         email: doc.data().email, 
         address: doc.data().address, 
-        dates: doc.data().bookingDates, 
+        dates: doc.data().bookingDates[0], 
         image: doc.data().inflatableImage, 
         paid: doc.data().paid, 
         specificTime:doc.data().specificTime, 
@@ -53,12 +53,13 @@ export const cron = () => {
     const diffDays = Math.round(Math.abs((new Date() - date) / oneDay));
 
     if (diffDays > 2 && paid == false) {
-      console.log('CANCELING: ' + id);
+      // console.log('CANCELING: ' + id);
       await sendNotification(data, id)
-      // await deleteDoc(doc(db, "bookings", id));
-    } else {
-      console.log('ON TIME: ' + id);
     }
+      // await deleteDoc(doc(db, "bookings", id));
+    // } else {
+    //   console.log('ON TIME: ' + id);
+    // }
   }
 
   async function sendNotification(data, reservationID){
@@ -71,8 +72,9 @@ export const cron = () => {
         },
         body: JSON.stringify({ data, reservationID })
       });
-      const responseData = await response.json();
-      console.log(responseData); 
+      if(response.status == 200){
+        await deleteDoc(doc(db, "bookings", id));
+      }
     } catch (error) {
       console.error('Error:', error);
     }
