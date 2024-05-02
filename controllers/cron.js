@@ -30,7 +30,7 @@ export const cron = () => {
         phone: doc.data().phone, 
         email: doc.data().email, 
         address: doc.data().address, 
-        dates: doc.data().bookingDates[0].toString(), 
+        dates: Array.isArray(doc.data().bookingDates) ? doc.data().bookingDates[0].toString() : "", 
         image: doc.data().inflatableImage, 
         paid: doc.data().paid, 
         specificTime:doc.data().specificTime, 
@@ -73,7 +73,7 @@ export const cron = () => {
         body: JSON.stringify({ data, reservationID })
       });
       if(response.status == 200){
-        await deleteDoc(doc(db, "bookings", reservationID));
+        // await deleteDoc(doc(db, "bookings", reservationID));
       }
     } catch (error) {
       console.error('Error:', error);
