@@ -31,7 +31,6 @@ export const cron = () => {
         email: doc.data().email, 
         address: doc.data().address, 
         dates: doc.data().bookingDates, 
-        reservationID: reservationID, 
         image: doc.data().inflatableImage, 
         paid: doc.data().paid, 
         specificTime:doc.data().specificTime, 
