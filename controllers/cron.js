@@ -25,8 +25,17 @@ export const cron = () => {
     querySnapshot.docs.map(async (doc) => {
       arrayBookings.push({
         id: doc.id,
+        name: doc.data().name, 
+        lastName: doc.data().lastName, 
+        phone: doc.data().phone, 
+        email: doc.data().email, 
+        address: doc.data().address, 
+        dates: doc.data().bookingDates, 
+        reservationID: reservationID, 
+        image: doc.data().inflatableImage, 
+        paid: doc.data().paid, 
+        specificTime:doc.data().specificTime, 
         created:doc.data().created, 
-        paid: doc.data().paid
       });
     })
     checkExpiredBookings()
@@ -36,19 +45,37 @@ export const cron = () => {
     for(let i = 0; i < arrayBookings.length; i++){
       const dateStr = arrayBookings[i].created.split(' |')[0];
       const date = new Date(dateStr); 
-      await compareDates(arrayBookings[i].id, date, arrayBookings[i].paid);
+      await compareDates(arrayBookings[i].id, date, arrayBookings[i].paid, arrayBookings[i]);
     }
   }
 
-  async function compareDates(id, date, paid){
+  async function compareDates(id, date, paid, data){
     const oneDay = 24 * 60 * 60 * 1000;
     const diffDays = Math.round(Math.abs((new Date() - date) / oneDay));
 
     if (diffDays > 2 && paid == false) {
       console.log('CANCELING: ' + id);
-      await deleteDoc(doc(db, "bookings", id));
+      await sendNotification(data, id)
+      // await deleteDoc(doc(db, "bookings", id));
     } else {
       console.log('ON TIME: ' + id);
+    }
+  }
+
+  async function sendNotification(data, reservationID){
+    console.log("SENDING NOTIFICATION ...");
+    try {
+      const response = await fetch('https://better-stays-mailer.vercel.app/api/bebookingCancellation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ data, reservationID })
+      });
+      const responseData = await response.json();
+      console.log(responseData); 
+    } catch (error) {
+      console.error('Error:', error);
     }
   }
 
