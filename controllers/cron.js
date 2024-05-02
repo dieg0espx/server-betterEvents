@@ -30,7 +30,7 @@ export const cron = () => {
         phone: doc.data().phone, 
         email: doc.data().email, 
         address: doc.data().address, 
-        dates: Array.isArray(doc.data().bookingDates) ? doc.data().bookingDates[0].toString() : "", 
+        dates: doc.data().bookingDates[0], 
         image: doc.data().inflatableImage, 
         paid: doc.data().paid, 
         specificTime:doc.data().specificTime, 
